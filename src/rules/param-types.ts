@@ -1,10 +1,10 @@
 import * as path from 'path';
-import { TSESTree } from '@typescript-eslint/experimental-utils';
+import { TSESTree } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
 import type {
   ReportDescriptor,
   RuleFix,
-} from '@typescript-eslint/experimental-utils/dist/ts-eslint';
+} from '@typescript-eslint/utils/dist/ts-eslint';
 import { topLevel } from '../util';
 
 type Regex = string;
@@ -29,7 +29,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: '',
-      category: 'Best Practices',
       recommended: false,
       requiresTypeChecking: false,
     },

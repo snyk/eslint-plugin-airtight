@@ -1,5 +1,5 @@
 {
   "extends": "../tsconfig.json",
-  "files": [
-    "../src/**/*.ts", "./**/*.ts", "file.ts"]
+  "include": ["../src/**/*.ts", "./**/*.ts"],
+  "files": ["file.ts"]
 }

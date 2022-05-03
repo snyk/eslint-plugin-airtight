@@ -1,6 +1,6 @@
 import { join } from 'path';
 import rule from '../../src/rules/http-library-of-the-week';
-import { RuleTester } from '@typescript-eslint/experimental-utils/dist/eslint-utils';
+import { RuleTester } from '@typescript-eslint/utils/dist/eslint-utils';
 
 const ruleTester = new RuleTester({
   parserOptions: {

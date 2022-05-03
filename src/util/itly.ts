@@ -1,15 +1,15 @@
-import { RuleContext } from '@typescript-eslint/experimental-utils/dist/ts-eslint';
+import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
+import { AST_NODE_TYPES } from '@typescript-eslint/types';
 import {
-  AST_NODE_TYPES,
   ClassBody,
   ClassDeclaration,
-  ClassProperty,
+  PropertyDefinition,
   TSTypeReference,
   TSInterfaceDeclaration,
   Program,
   Node,
   ExportNamedDeclaration,
-} from '@typescript-eslint/types/dist/ast-spec';
+} from '@typescript-eslint/types/dist/generated/ast-spec';
 
 export type ItlyRuleOptions = [{}];
 export type ItlyRuleMessageIds = 'invalidFile' | 'missingRequiredItlyProperty';
@@ -33,14 +33,14 @@ export function classIsItlyEventImplementation(
 export function getItlyPropertiesDeclaration(classBody: ClassBody) {
   return classBody.body.find(
     (classProperty) =>
-      classProperty.type === AST_NODE_TYPES.ClassProperty &&
+      classProperty.type === AST_NODE_TYPES.PropertyDefinition &&
       classProperty.key.type === AST_NODE_TYPES.Identifier &&
       classProperty.key.name === 'properties',
   );
 }
 
 export function getImplementedProperties(
-  classElement: ClassProperty,
+  classElement: PropertyDefinition,
 ): TSTypeReference | undefined {
   const typeAnnotation = classElement.typeAnnotation?.typeAnnotation;
   if (typeAnnotation?.type === AST_NODE_TYPES.TSIntersectionType) {

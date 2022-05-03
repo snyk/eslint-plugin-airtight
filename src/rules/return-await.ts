@@ -3,7 +3,7 @@ import {
   ESLintUtils,
   TSESLint,
   TSESTree,
-} from '@typescript-eslint/experimental-utils';
+} from '@typescript-eslint/utils';
 import * as tsutils from 'tsutils';
 import * as ts from 'typescript';
 import * as util from '../util/from-eslint-typescript';
@@ -38,7 +38,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: 'Enforces consistent returning of awaited values',
-      category: 'Best Practices',
       recommended: false,
       requiresTypeChecking: true,
       extendsBaseRule: 'no-return-await',

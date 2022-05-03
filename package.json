@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^4.19.0",
+    "@typescript-eslint/utils": "^5.22.0",
     "tslib": "^2.1.0",
     "tsutils": "^3.21.0"
   },
@@ -36,7 +36,7 @@
     "@types/mkdirp": "^1.0.1",
     "@types/mocha": "^9.1.1",
     "@types/tmp": "^0.2.0",
-    "@typescript-eslint/parser": "^4",
+    "@typescript-eslint/parser": "^5",
     "eslint": "^7",
     "mkdirp": "^1.0.4",
     "mocha": "^10.0.0",

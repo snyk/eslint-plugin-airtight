@@ -1,3 +1,4 @@
+import assert from 'assert';
 import path from 'path';
 
 import { DirResult, dirSync } from 'tmp';
@@ -19,11 +20,11 @@ describe('import target', () => {
   });
 
   it('resolves built-in modules', () => {
-    expect(importTarget(dir, 'http')).toBe('http');
-    expect(importTarget(dir, 'internal/foo')).toBe('internal/foo');
+    assert.equal(importTarget(dir, 'http'), 'http');
+    assert.equal(importTarget(dir, 'internal/foo'), 'internal/foo');
   });
 
-  it.each([['./a', './a']])('resolves relatives', (from, to) => {
-    expect(importTarget(dir, from)).toBe(path.resolve(dir, to));
+  it('resolves relatives', () => {
+    assert.equal(importTarget(dir, './a'), path.resolve(dir, './a'));
   });
 });

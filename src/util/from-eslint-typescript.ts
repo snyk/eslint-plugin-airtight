@@ -5,7 +5,7 @@ import {
   AST_TOKEN_TYPES,
   ESLintUtils,
   TSESTree,
-} from '@typescript-eslint/experimental-utils';
+} from '@typescript-eslint/utils';
 
 export const createRule = ESLintUtils.RuleCreator((name) => name);
 

@@ -1,8 +1,8 @@
+import { AST_NODE_TYPES } from '@typescript-eslint/types';
 import {
-  AST_NODE_TYPES,
   ClassDeclaration,
-  ClassProperty,
-} from '@typescript-eslint/types/dist/ast-spec';
+  PropertyDefinition,
+} from '@typescript-eslint/types/dist/generated/ast-spec';
 import * as util from '../util/from-eslint-typescript';
 import {
   classIsItlyEventImplementation,
@@ -22,7 +22,6 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
     docs: {
       description: 'Enforces itly eventSource is set in Iteratively',
       recommended: false,
-      category: 'Best Practices',
     },
     schema: [{}],
     messages: {
@@ -34,7 +33,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
   defaultOptions: [{}],
   create: function (context) {
     function propertiesDeclarationContainsEventSourceConstant(
-      propertiesDeclaration: ClassProperty,
+      propertiesDeclaration: PropertyDefinition,
     ) {
       if (
         propertiesDeclaration.typeAnnotation?.typeAnnotation.type ===
@@ -69,7 +68,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
     }
 
     function getPropertiesInterfaceName(
-      itlyPropertiesDeclaration: ClassProperty,
+      itlyPropertiesDeclaration: PropertyDefinition,
     ) {
       const implementedProperties = getImplementedProperties(
         itlyPropertiesDeclaration,
@@ -85,7 +84,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
     }
 
     function propertiesInterfaceContainsEventSource(
-      itlyPropertiesDeclaration: ClassProperty,
+      itlyPropertiesDeclaration: PropertyDefinition,
     ) {
       const interfaceName = getPropertiesInterfaceName(
         itlyPropertiesDeclaration,
@@ -144,7 +143,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
 
         if (
           !itlyPropertiesDeclaration ||
-          itlyPropertiesDeclaration.type !== AST_NODE_TYPES.ClassProperty
+          itlyPropertiesDeclaration.type !== AST_NODE_TYPES.PropertyDefinition
         ) {
           reportMissingItlyConstant(classDeclarationNode);
           return;
