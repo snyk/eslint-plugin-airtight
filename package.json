@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-sinful",
+  "name": "eslint-plugin-airtight",
   "version": "0.1.3",
   "description": "",
   "main": "dist/index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FauxFaux/eslint-plugin-sinful.git"
+    "url": "git+https://github.com/snyk/eslint-plugin-airtight.git"
   },
   "author": "Chris West (Faux) <solo-npm@goeswhere.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FauxFaux/eslint-plugin-sinful/issues"
+    "url": "https://github.com/snyk/eslint-plugin-airtight/issues"
   },
-  "homepage": "https://github.com/FauxFaux/eslint-plugin-sinful#readme",
+  "homepage": "https://github.com/snyk/eslint-plugin-airtight#readme",
   "files": [
     "dist/",
     "src/",
@@ -38,7 +38,7 @@
     "eslint": "^7",
     "jest": "^27",
     "mkdirp": "^1.0.4",
-    "prettier": "^2",
+    "prettier": "~2.6.2",
     "tmp": "^0.2.1",
     "typescript": "~4.4"
   }

@@ -68,7 +68,9 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
       return false;
     }
 
-    function getPropertiesInterfaceName(itlyPropertiesDeclaration: ClassProperty) {
+    function getPropertiesInterfaceName(
+      itlyPropertiesDeclaration: ClassProperty,
+    ) {
       const implementedProperties = getImplementedProperties(
         itlyPropertiesDeclaration,
       );
@@ -77,14 +79,17 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
         return;
       }
 
-      return (
-        implementedProperties.typeName.type === AST_NODE_TYPES.Identifier ?
-        implementedProperties.typeName.name : undefined
-      );
+      return implementedProperties.typeName.type === AST_NODE_TYPES.Identifier
+        ? implementedProperties.typeName.name
+        : undefined;
     }
 
-    function propertiesInterfaceContainsEventSource(itlyPropertiesDeclaration: ClassProperty) {
-      const interfaceName = getPropertiesInterfaceName(itlyPropertiesDeclaration);
+    function propertiesInterfaceContainsEventSource(
+      itlyPropertiesDeclaration: ClassProperty,
+    ) {
+      const interfaceName = getPropertiesInterfaceName(
+        itlyPropertiesDeclaration,
+      );
 
       if (!interfaceName) {
         return false;

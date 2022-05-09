@@ -3,4 +3,4 @@ node_modules/
 ?
 dist/
 .idea/
-eslint-plugin-sinful-*.tgz
+eslint-plugin-*.tgz

@@ -20,7 +20,7 @@ ruleTester.run('export-inline', rule, {
   invalid: [
     {
       code: `function night() { return foo.findAll({ where: {} }) }`,
-      output: `function night() { return foo.findAll({ comment: 'eslint-plugin-sinful/tests/file.ts:night', where: {} }) }`,
+      output: `function night() { return foo.findAll({ comment: 'eslint-plugin-airtight/tests/file.ts:night', where: {} }) }`,
       errors: [
         {
           line: 1,
@@ -39,7 +39,7 @@ ruleTester.run('export-inline', rule, {
     },
     {
       code: `function noon() { foo.findAll({}) }`,
-      output: `function noon() { foo.findAll({comment: 'eslint-plugin-sinful/tests/file.ts:noon', }) }`,
+      output: `function noon() { foo.findAll({comment: 'eslint-plugin-airtight/tests/file.ts:noon', }) }`,
       errors: [
         {
           line: 1,
@@ -58,7 +58,7 @@ ruleTester.run('export-inline', rule, {
     },
     {
       code: `const day = () => foo.findAll({ where: {} })`,
-      output: `const day = () => foo.findAll({ comment: 'eslint-plugin-sinful/tests/file.ts:day', where: {} })`,
+      output: `const day = () => foo.findAll({ comment: 'eslint-plugin-airtight/tests/file.ts:day', where: {} })`,
       errors: [
         {
           line: 1,

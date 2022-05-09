@@ -1,8 +1,7 @@
-## eslint-plugin-sinful
+## eslint-plugin-airtight
 
-Some rules are just not clean enough for upstream.
-
-At least, according to upstream. We love all rules equally.
+A collection of additional `eslint` rules, initially derived from
+[eslint-plugin-sinful](https://github.com/FauxFaux/eslint-plugin-sinful).
 
 
 ## Rules

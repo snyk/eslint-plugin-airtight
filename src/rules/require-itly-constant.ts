@@ -4,7 +4,13 @@ import {
   ClassProperty,
 } from '@typescript-eslint/types/dist/ast-spec';
 import * as util from '../util/from-eslint-typescript';
-import { classIsItlyEventImplementation, getItlyPropertiesDeclaration, isItlyFile, ItlyRuleMessageIds, ItlyRuleOptions } from '../util/itly';
+import {
+  classIsItlyEventImplementation,
+  getItlyPropertiesDeclaration,
+  isItlyFile,
+  ItlyRuleMessageIds,
+  ItlyRuleOptions,
+} from '../util/itly';
 
 export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
   name: 'require-itly-constant',
