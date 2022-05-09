@@ -5,6 +5,7 @@
   "scripts": {
     "prepare": "tsc",
     "format": "prettier --write 'src/**/*.ts'",
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "mocha"
   },
   "repository": {
@@ -36,8 +37,10 @@
     "@types/mkdirp": "^1.0.1",
     "@types/mocha": "^9.1.1",
     "@types/tmp": "^0.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5",
     "eslint": "^7",
+    "eslint-config-prettier": "^8.5.0",
     "mkdirp": "^1.0.4",
     "mocha": "^10.0.0",
     "prettier": "~2.6.2",

@@ -38,7 +38,7 @@ export default util.createRule<Options, MessageIds>({
   },
   defaultOptions: [{ fixedFunction: ['p-map', 'pMap'] }],
 
-  create(context, [options]) {
+  create(context) {
     const imported = new Set<string>();
 
     const sourceCode = context.getSourceCode();
@@ -65,7 +65,7 @@ export default util.createRule<Options, MessageIds>({
 
       CallExpression(node: TSESTree.CallExpression) {
         switch (node.callee.type) {
-          case 'MemberExpression':
+          case 'MemberExpression': {
             if (1 !== node.arguments.length) return;
             if (node.callee.object.type !== 'Identifier') return;
             if (node.callee.object.name !== 'Promise') return;
@@ -115,8 +115,8 @@ export default util.createRule<Options, MessageIds>({
               fix,
             });
             break;
-
-          case 'Identifier':
+          }
+          case 'Identifier': {
             if (!imported.has(node.callee.name)) return;
 
             if (2 === node.arguments.length) {
@@ -152,6 +152,7 @@ export default util.createRule<Options, MessageIds>({
             }
 
             return;
+          }
           default:
             return;
         }

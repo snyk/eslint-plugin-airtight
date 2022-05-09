@@ -24,7 +24,7 @@ export default util.createRule<Options, MessageIds>({
   },
   defaultOptions: [{}],
 
-  create(context, []) {
+  create(context) {
     return {
       Program(node: TSESTree.Program) {
         const exports: { [name: string]: TSESTree.ExportSpecifier } = {};

@@ -22,7 +22,7 @@ export default util.createRule<Options, MessageIds>({
   },
   defaultOptions: [{}],
 
-  create(context, [options]) {
+  create(context) {
     return {
       CallExpression(node: TSESTree.CallExpression) {
         if (node.callee.type !== 'MemberExpression') return;
