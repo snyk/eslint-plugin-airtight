@@ -1,0 +1,44 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Test
+          command: npm run test
+  release:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Release
+          command: npx -y semantic-release@19
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+          name: Test
+          context: nodejs-install
+  release:
+    jobs:
+      - release:
+          name: Release
+          context: nodejs-lib-release
+          filters:
+            branches:
+              only:
+                - main

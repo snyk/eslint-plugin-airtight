@@ -23,6 +23,9 @@
     "src/",
     "README.md"
   ],
+  "release": {
+    "branches": ["main"]
+  },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^4.19.0",
     "tslib": "^2.1.0",
