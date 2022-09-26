@@ -11,7 +11,7 @@ const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run('export-inline', rule, {
+ruleTester.run('sequelize-comment', rule, {
   valid: [
     `findAll({})`,
     `foo.findAll(2)`,
@@ -49,6 +49,16 @@ ruleTester.run('export-inline', rule, {
     },
     {
       code: `function noon() { foo.findOne({ /* whatevs */}) }`,
+      errors: [
+        {
+          line: 1,
+          messageId: 'requiresComment',
+        },
+      ],
+    },
+    {
+      code: `class Motley { fool() { foo.findOne({}) } }`,
+      output: `class Motley { fool() { foo.findAll({comment: 'eslint-plugin-airtight/tests/file.ts:fool', }) } }`,
       errors: [
         {
           line: 1,

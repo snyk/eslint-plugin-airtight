@@ -90,6 +90,8 @@ function getFunc(node: TSESTree.Node | undefined): string | undefined {
       if (decl?.type === 'VariableDeclarator' && 'name' in decl.id)
         return decl.id.name;
     }
+    if (node.type === 'MethodDefinition' && node.key?.type === 'Identifier')
+      return node.key.name;
     node = node.parent;
   }
   return undefined;
