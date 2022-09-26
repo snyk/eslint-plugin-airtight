@@ -84,12 +84,31 @@ function hasProperty(object: TSESTree.ObjectExpression, name: string): boolean {
 
 function getFunc(node: TSESTree.Node | undefined): string | undefined {
   while (node) {
+    // function RESULT() {}
     if (node.type === 'FunctionDeclaration') return node.id?.name;
     if (node.type === 'ArrowFunctionExpression') {
       const decl = node.parent;
+
+      // const RESULT = () => {};
       if (decl?.type === 'VariableDeclarator' && 'name' in decl.id)
         return decl.id.name;
+
+      // router.get('/RESULT', async () => {});
+      if (
+        decl?.type === 'CallExpression' &&
+        decl.arguments.length === 2 &&
+        decl?.callee?.type === 'MemberExpression' &&
+        decl.callee.object.type === 'Identifier' &&
+        decl.callee.object.name === 'router' &&
+        decl.callee.property.type === 'Identifier'
+      ) {
+        const arg = decl.arguments[0];
+        if (arg.type === 'Literal') {
+          return `${decl.callee.property.name}:${arg.value}`;
+        }
+      }
     }
+    // class Ignored { RESULT() {} }
     if (node.type === 'MethodDefinition' && node.key?.type === 'Identifier')
       return node.key.name;
     node = node.parent;

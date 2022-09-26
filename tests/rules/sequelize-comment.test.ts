@@ -57,8 +57,18 @@ ruleTester.run('sequelize-comment', rule, {
       ],
     },
     {
-      code: `class Motley { fool() { foo.findOne({}) } }`,
+      code: `class Motley { fool() { foo.findAll({}) } }`,
       output: `class Motley { fool() { foo.findAll({comment: 'eslint-plugin-airtight/tests/file.ts:fool', }) } }`,
+      errors: [
+        {
+          line: 1,
+          messageId: 'requiresComment',
+        },
+      ],
+    },
+    {
+      code: `router.get('/:foo', async () => { foo.findAll({}) });`,
+      output: `router.get('/:foo', async () => { foo.findAll({comment: 'eslint-plugin-airtight/tests/file.ts:get:/:foo', }) });`,
       errors: [
         {
           line: 1,
