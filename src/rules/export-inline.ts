@@ -131,7 +131,7 @@ function isExportNamedDecl(
 
 function isFuncDecl(
   node: TSESTree.Statement,
-): node is TSESTree.FunctionDeclaration {
+): node is TSESTree.Statement & Pick<TSESTree.FunctionDeclaration, 'id'> {
   return node.type === 'FunctionDeclaration';
 }
 
