@@ -1,15 +1,6 @@
-import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 import { AST_NODE_TYPES } from '@typescript-eslint/types';
-import {
-  ClassBody,
-  ClassDeclaration,
-  PropertyDefinition,
-  TSTypeReference,
-  TSInterfaceDeclaration,
-  Program,
-  Node,
-  ExportNamedDeclaration,
-} from '@typescript-eslint/types/dist/generated/ast-spec';
+import { TSESTree } from '@typescript-eslint/utils';
 
 export type ItlyRuleOptions = [{}];
 export type ItlyRuleMessageIds = 'invalidFile' | 'missingRequiredItlyProperty';
@@ -21,7 +12,7 @@ export function isItlyFile(
 }
 
 export function classIsItlyEventImplementation(
-  classDeclaration: ClassDeclaration,
+  classDeclaration: TSESTree.ClassDeclaration,
 ) {
   return classDeclaration.implements?.find(
     (implementsNode) =>
@@ -30,7 +21,7 @@ export function classIsItlyEventImplementation(
   );
 }
 
-export function getItlyPropertiesDeclaration(classBody: ClassBody) {
+export function getItlyPropertiesDeclaration(classBody: TSESTree.ClassBody) {
   return classBody.body.find(
     (classProperty) =>
       classProperty.type === AST_NODE_TYPES.PropertyDefinition &&
@@ -40,18 +31,18 @@ export function getItlyPropertiesDeclaration(classBody: ClassBody) {
 }
 
 export function getImplementedProperties(
-  classElement: PropertyDefinition,
-): TSTypeReference | undefined {
+  classElement: TSESTree.PropertyDefinition,
+): TSESTree.TSTypeReference | undefined {
   const typeAnnotation = classElement.typeAnnotation?.typeAnnotation;
   if (typeAnnotation?.type === AST_NODE_TYPES.TSIntersectionType) {
     return typeAnnotation.types.find(
       (type) => type.type === AST_NODE_TYPES.TSTypeReference,
-    ) as TSTypeReference | undefined;
+    ) as TSESTree.TSTypeReference | undefined;
   }
   return;
 }
 
-export function getProgram(node: Node) {
+export function getProgram(node: TSESTree.Node) {
   let parent = node.parent;
   while (parent && parent.type !== AST_NODE_TYPES.Program) {
     parent = parent.parent;
@@ -60,14 +51,16 @@ export function getProgram(node: Node) {
 }
 
 export function getInterfaceDeclarationFromProgram(
-  program: Program,
+  program: TSESTree.Program,
   name: string,
-): TSInterfaceDeclaration | undefined {
+): TSESTree.TSInterfaceDeclaration | undefined {
   const declaration = program.body.find(
     (node) =>
       node.type === AST_NODE_TYPES.ExportNamedDeclaration &&
       node.declaration?.type === AST_NODE_TYPES.TSInterfaceDeclaration &&
       node.declaration.id.name === name,
-  ) as ExportNamedDeclaration | undefined;
-  return declaration?.declaration as TSInterfaceDeclaration | undefined;
+  ) as TSESTree.ExportNamedDeclaration | undefined;
+  return declaration?.declaration as
+    | TSESTree.TSInterfaceDeclaration
+    | undefined;
 }

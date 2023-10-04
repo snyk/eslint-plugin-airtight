@@ -1,8 +1,5 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/types';
-import {
-  ClassDeclaration,
-  PropertyDefinition,
-} from '@typescript-eslint/types/dist/generated/ast-spec';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
 import {
   classIsItlyEventImplementation,
@@ -15,15 +12,15 @@ import {
   ItlyRuleOptions,
 } from '../util/itly';
 
-export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
+// explicit typing to work around an apparent typescript compiler bug, please remove if it works for you
+export const rule: TSESLint.RuleModule<ItlyRuleMessageIds, ItlyRuleOptions> =  util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
   name: 'require-itly-event-source',
   meta: {
     type: 'problem',
     docs: {
       description: 'Enforces itly eventSource is set in Iteratively',
-      recommended: false,
     },
-    schema: [{}],
+    schema: [{} as any],
     messages: {
       invalidFile:
         'require-itly-event-source should only be enabled for the generated Itly library',
@@ -33,7 +30,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
   defaultOptions: [{}],
   create: function (context) {
     function propertiesDeclarationContainsEventSourceConstant(
-      propertiesDeclaration: PropertyDefinition,
+      propertiesDeclaration: TSESTree.PropertyDefinition,
     ) {
       if (
         propertiesDeclaration.typeAnnotation?.typeAnnotation.type ===
@@ -68,7 +65,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
     }
 
     function getPropertiesInterfaceName(
-      itlyPropertiesDeclaration: PropertyDefinition,
+      itlyPropertiesDeclaration: TSESTree.PropertyDefinition,
     ) {
       const implementedProperties = getImplementedProperties(
         itlyPropertiesDeclaration,
@@ -84,7 +81,7 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
     }
 
     function propertiesInterfaceContainsEventSource(
-      itlyPropertiesDeclaration: PropertyDefinition,
+      itlyPropertiesDeclaration: TSESTree.PropertyDefinition,
     ) {
       const interfaceName = getPropertiesInterfaceName(
         itlyPropertiesDeclaration,
@@ -115,7 +112,9 @@ export default util.createRule<ItlyRuleOptions, ItlyRuleMessageIds>({
       );
     }
 
-    function reportMissingItlyConstant(classDeclarationNode: ClassDeclaration) {
+    function reportMissingItlyConstant(
+      classDeclarationNode: TSESTree.ClassDeclaration,
+    ) {
       context.report({
         node: classDeclarationNode,
         messageId: 'missingRequiredItlyProperty',

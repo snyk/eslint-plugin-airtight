@@ -1,7 +1,7 @@
 import { join } from 'path';
-import rule from '../../src/rules/import-style';
+import { rule } from '../../src/rules/import-style';
 import type { Options } from '../../src/rules/import-style';
-import { RuleTester } from '@typescript-eslint/utils/dist/eslint-utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
   parserOptions: {

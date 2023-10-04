@@ -1,6 +1,5 @@
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
-import { ReportDescriptor } from '@typescript-eslint/utils/dist/ts-eslint';
 
 type Options = [{}];
 type MessageIds = 'requiresComment';
@@ -10,7 +9,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: '',
-      recommended: false,
       requiresTypeChecking: false,
     },
     fixable: 'code',
@@ -18,7 +16,7 @@ export default util.createRule<Options, MessageIds>({
     messages: {
       requiresComment: 'The `comment` property is required',
     },
-    schema: [{}],
+    schema: [{} as any],
   },
   defaultOptions: [{}],
 
@@ -45,7 +43,7 @@ export default util.createRule<Options, MessageIds>({
         // literally just {}
         const trulyEmptyBlock = 2 === arg.range[1] - arg.range[0];
 
-        let fix: ReportDescriptor<MessageIds>['fix'] = undefined;
+        let fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = undefined;
         if (funcName && (hasAnyProperties || trulyEmptyBlock)) {
           fix = (fixer) => {
             const pathEnd = context

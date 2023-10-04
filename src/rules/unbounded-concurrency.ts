@@ -1,9 +1,5 @@
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
-import type {
-  ReportDescriptor,
-  RuleFix,
-} from '@typescript-eslint/utils/dist/ts-eslint';
 import { topLevel } from '../util';
 
 type Options = [{}];
@@ -14,7 +10,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: '',
-      recommended: false,
       requiresTypeChecking: false,
     },
     fixable: 'code',
@@ -88,8 +83,8 @@ export default util.createRule<Options, MessageIds>({
             let func = imported.values().next().value;
             const obj = sourceCode.getText(arg.callee.object);
             const mapper = sourceCode.getText(arg.arguments[0]);
-            const fix: ReportDescriptor<MessageIds>['fix'] = (fixer) => {
-              const fixes: RuleFix[] = [];
+            const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (fixer) => {
+              const fixes: TSESLint.RuleFix[] = [];
               if (!func) {
                 func = 'pMap';
                 imported.add(func);
@@ -120,7 +115,7 @@ export default util.createRule<Options, MessageIds>({
             if (!imported.has(node.callee.name)) return;
 
             if (2 === node.arguments.length) {
-              const fix: ReportDescriptor<MessageIds>['fix'] = (fixer) =>
+              const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (fixer) =>
                 fixer.insertTextAfter(
                   node.arguments[1],
                   ', { concurrency: 6 }',

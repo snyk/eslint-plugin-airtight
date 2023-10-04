@@ -38,12 +38,12 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: 'Enforces consistent returning of awaited values',
-      recommended: false,
       requiresTypeChecking: true,
       extendsBaseRule: 'no-return-await',
     },
     fixable: 'code',
     type: 'problem',
+    hasSuggestions: true,
     messages: {
       nonPromiseAwait:
         'Returning an awaited value that is not a promise is not allowed.',
@@ -63,7 +63,7 @@ export default util.createRule<Options, MessageIds>({
           neverRemove: { type: 'boolean' },
         },
       },
-    ],
+    ] as any,
   },
   defaultOptions: [
     'in-try-catch',
