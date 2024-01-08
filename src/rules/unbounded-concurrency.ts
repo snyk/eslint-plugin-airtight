@@ -83,7 +83,9 @@ export default util.createRule<Options, MessageIds>({
             let func = imported.values().next().value;
             const obj = sourceCode.getText(arg.callee.object);
             const mapper = sourceCode.getText(arg.arguments[0]);
-            const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (fixer) => {
+            const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (
+              fixer,
+            ) => {
               const fixes: TSESLint.RuleFix[] = [];
               if (!func) {
                 func = 'pMap';
@@ -115,7 +117,9 @@ export default util.createRule<Options, MessageIds>({
             if (!imported.has(node.callee.name)) return;
 
             if (2 === node.arguments.length) {
-              const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (fixer) =>
+              const fix: TSESLint.ReportDescriptor<MessageIds>['fix'] = (
+                fixer,
+              ) =>
                 fixer.insertTextAfter(
                   node.arguments[1],
                   ', { concurrency: 6 }',

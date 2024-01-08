@@ -142,5 +142,5 @@ ruleTester.run('export-inline', rule, {
         },
       ],
     },
-  ]
+  ],
 });

@@ -17,7 +17,10 @@ export type Options = [
 type MessageIds = 'useRegularImport';
 
 // explicit typing to work around an apparent typescript compiler bug, please remove if it works for you
-export const rule: TSESLint.RuleModule<MessageIds, Options> = util.createRule<Options, MessageIds>({
+export const rule: TSESLint.RuleModule<MessageIds, Options> = util.createRule<
+  Options,
+  MessageIds
+>({
   name: 'import-style',
   meta: {
     docs: {

@@ -85,5 +85,5 @@ await pMap(unknownVar, async (v) => v, { concurrency: 6 });`,
         },
       ],
     },
-  ]
+  ],
 });

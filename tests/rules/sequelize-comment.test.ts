@@ -12,11 +12,7 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run('sequelize-comment', rule, {
-  valid: [
-    `findAll({})`,
-    `foo.findAll(2)`,
-    `foo.findAll({ comment: 'hello' })`,
-  ],
+  valid: [`findAll({})`, `foo.findAll(2)`, `foo.findAll({ comment: 'hello' })`],
   invalid: [
     {
       code: `function night() { return foo.findAll({ where: {} }) }`,
@@ -85,6 +81,6 @@ ruleTester.run('sequelize-comment', rule, {
           messageId: 'requiresComment',
         },
       ],
-    }
-  ]
+    },
+  ],
 });
