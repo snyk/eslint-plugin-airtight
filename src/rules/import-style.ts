@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
 import path from 'path';
 import { importTarget } from '../util/node-imports';
@@ -16,12 +16,15 @@ export type Options = [
 ];
 type MessageIds = 'useRegularImport';
 
-export default util.createRule<Options, MessageIds>({
+// explicit typing to work around an apparent typescript compiler bug, please remove if it works for you
+export const rule: TSESLint.RuleModule<MessageIds, Options> = util.createRule<
+  Options,
+  MessageIds
+>({
   name: 'import-style',
   meta: {
     docs: {
       description: '',
-      recommended: false,
       requiresTypeChecking: false,
     },
     fixable: 'code',
@@ -29,7 +32,7 @@ export default util.createRule<Options, MessageIds>({
     messages: {
       useRegularImport: 'Modern import style available',
     },
-    schema: [{}],
+    schema: [{} as any],
   },
   defaultOptions: [{ requireToNamed: [] }],
 

@@ -1,10 +1,6 @@
 import * as path from 'path';
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
-import type {
-  ReportDescriptor,
-  RuleFix,
-} from '@typescript-eslint/utils/dist/ts-eslint';
 import { topLevel } from '../util';
 
 type Regex = string;
@@ -29,7 +25,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: '',
-      recommended: false,
       requiresTypeChecking: false,
     },
     fixable: 'code',
@@ -75,7 +70,7 @@ export default util.createRule<Options, MessageIds>({
         for (const param of node.params) {
           if (param.type !== 'Identifier') continue;
 
-          if ('typeAnnotation' in param) {
+          if (param.typeAnnotation) {
             continue;
           }
 
@@ -84,12 +79,12 @@ export default util.createRule<Options, MessageIds>({
 
           const fixObj = fixes.find(([r]) => param.name.match(r));
 
-          let fix: ReportDescriptor<MessageIds>['fix'];
+          let fix: TSESLint.ReportDescriptor<MessageIds>['fix'];
           if (fixObj) {
             const [, [importFrom, type]] = fixObj;
             const importText = `import type { ${type} } from '${importFrom}';\n`;
             fix = (fixer) => {
-              const fixes: RuleFix[] = [];
+              const fixes: TSESLint.RuleFix[] = [];
               if (!imported.has(type)) {
                 imported.add(type);
                 fixes.push(fixer.insertTextBefore(topLevel(node), importText));

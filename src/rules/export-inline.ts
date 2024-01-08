@@ -1,7 +1,5 @@
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESTree, TSESLint } from '@typescript-eslint/utils';
 import * as util from '../util/from-eslint-typescript';
-import { RuleContext } from '@typescript-eslint/utils/dist/ts-eslint';
-
 type Options = [{}];
 type MessageIds = 'mustBeInline' | 'unnecessaryEmptyExport';
 
@@ -10,7 +8,6 @@ export default util.createRule<Options, MessageIds>({
   meta: {
     docs: {
       description: '',
-      recommended: false,
       requiresTypeChecking: false,
     },
     fixable: 'code',
@@ -20,7 +17,7 @@ export default util.createRule<Options, MessageIds>({
       unnecessaryEmptyExport:
         '`export {}` is not necessary if there are other imports/exports',
     },
-    schema: [{}],
+    schema: [{} as any],
   },
   defaultOptions: [{}],
 
@@ -101,7 +98,7 @@ export default util.createRule<Options, MessageIds>({
 });
 
 function report(
-  context: RuleContext<MessageIds, Options>,
+  context: TSESLint.RuleContext<MessageIds, Options>,
   nodeOrToken: TSESTree.Node,
   spec: TSESTree.ExportSpecifier,
 ): void {

@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prepare": "tsc",
-    "format": "prettier --write 'src/**/*.ts'",
+    "format": "prettier --write 'src/**/*.ts' 'tests/**/*.ts' '.*.json'",
     "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "test": "mocha"
   },
@@ -29,23 +29,24 @@
     ]
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.22.0",
+    "@typescript-eslint/utils": "^6",
     "tslib": "^2.1.0",
     "tsutils": "^3.21.0"
   },
   "devDependencies": {
     "@types/mkdirp": "^1.0.1",
-    "@types/mocha": "^9.1.1",
+    "@types/mocha": "^10",
     "@types/tmp": "^0.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5",
-    "eslint": "^7",
-    "eslint-config-prettier": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/rule-tester": "^6.18.0",
+    "eslint": "^8",
+    "eslint-config-prettier": "^9",
     "mkdirp": "^1.0.4",
     "mocha": "^10.0.0",
-    "prettier": "~2.7.1",
+    "prettier": "~3.1.1",
     "tmp": "^0.2.1",
     "ts-node": "^10.7.0",
-    "typescript": "~4.8"
+    "typescript": "~5.1"
   }
 }

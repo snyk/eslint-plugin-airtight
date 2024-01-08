@@ -1,7 +1,7 @@
 import { join } from 'path';
-import rule from '../../src/rules/import-style';
+import { rule } from '../../src/rules/import-style';
 import type { Options } from '../../src/rules/import-style';
-import { RuleTester } from '@typescript-eslint/utils/dist/eslint-utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -12,10 +12,22 @@ const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
 });
 
-const manyTransforms: Options = [{
-  wildNsToRequire: [ { path: './bar' }, { path: 'baz' } , { local: 'foo', path: './bar' }, { local: 'foo', path: 'baz' } ],
-  requireToNamed: [ { path: './bar' }, { path: 'baz' } , { local: 'foo', path: './bar' }, { local: 'foo', path: 'baz' } ],
-}];
+const manyTransforms: Options = [
+  {
+    wildNsToRequire: [
+      { path: './bar' },
+      { path: 'baz' },
+      { local: 'foo', path: './bar' },
+      { local: 'foo', path: 'baz' },
+    ],
+    requireToNamed: [
+      { path: './bar' },
+      { path: 'baz' },
+      { local: 'foo', path: './bar' },
+      { local: 'foo', path: 'baz' },
+    ],
+  },
+];
 
 ruleTester.run('import-style', rule, {
   valid: [
@@ -34,9 +46,11 @@ ruleTester.run('import-style', rule, {
     {
       code: `import foo = require('./foo/bar');`,
       output: `import { foo } from './foo/bar';`,
-      options: [{
-        requireToNamed: [{local: 'foo', path: './foo/bar'}],
-      }],
+      options: [
+        {
+          requireToNamed: [{ local: 'foo', path: './foo/bar' }],
+        },
+      ],
       errors: [
         {
           line: 1,
@@ -60,9 +74,11 @@ ruleTester.run('import-style', rule, {
     {
       code: `import * as foo from 'potato';`,
       output: `import foo = require('potato');`,
-      options: [{
-        wildNsToRequire: [{path: 'potato'}],
-      }],
+      options: [
+        {
+          wildNsToRequire: [{ path: 'potato' }],
+        },
+      ],
       errors: [
         {
           line: 1,
@@ -70,5 +86,5 @@ ruleTester.run('import-style', rule, {
         },
       ],
     },
-  ]
+  ],
 });

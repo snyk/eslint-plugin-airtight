@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "target": "es2017",
     "lib": ["es2017"],
-    "module": "commonjs",
+    "module": "node16",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "strict": true,
     "importHelpers": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
     "noImplicitReturns": true
   },

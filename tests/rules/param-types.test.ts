@@ -1,6 +1,6 @@
 import { join } from 'path';
 import rule from '../../src/rules/param-types';
-import { RuleTester } from '@typescript-eslint/utils/dist/eslint-utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -25,7 +25,7 @@ ruleTester.run('param-types', rule, {
   ],
   invalid: [
     {
-      options: [{required: [".*"], fixes: {"foo": ["./lib/types", "Foo"]}}],
+      options: [{ required: ['.*'], fixes: { foo: ['./lib/types', 'Foo'] } }],
       code: `function test(foo) {}`,
       output: `import type { Foo } from '../lib/types';
 function test(foo: Foo) {}`,
@@ -37,7 +37,7 @@ function test(foo: Foo) {}`,
       ],
     },
     {
-      options: [{required: [".*"], fixes: {"foo": ["./lib/types", "Foo"]}}],
+      options: [{ required: ['.*'], fixes: { foo: ['./lib/types', 'Foo'] } }],
       code: `import type { Foo } from '../lib/types';
 function test(foo) {}`,
       output: `import type { Foo } from '../lib/types';
@@ -50,7 +50,7 @@ function test(foo: Foo) {}`,
       ],
     },
     {
-      options: [{required: [".*"], fixes: {"foo": ["./lib/types", "Foo"]}}],
+      options: [{ required: ['.*'], fixes: { foo: ['./lib/types', 'Foo'] } }],
       code: `function test(foo) {}
 function two(foo) {}
 function three(foo) {}
@@ -64,17 +64,19 @@ function three(foo: Foo) {}
         {
           line: 1,
           messageId: 'mustBeTyped',
-        },        {
+        },
+        {
           line: 2,
           messageId: 'mustBeTyped',
-        },        {
+        },
+        {
           line: 3,
           messageId: 'mustBeTyped',
         },
       ],
     },
     {
-      options: [{required: [".*"], fixes: {"foo": ["lib-foo", "Foo"]}}],
+      options: [{ required: ['.*'], fixes: { foo: ['lib-foo', 'Foo'] } }],
       code: `function test(foo) {}`,
       output: `import type { Foo } from 'lib-foo';
 function test(foo: Foo) {}`,
@@ -85,5 +87,5 @@ function test(foo: Foo) {}`,
         },
       ],
     },
-  ]
+  ],
 });

@@ -46,8 +46,8 @@ export function isTypeFlagSet(
 /**
  * Gets all of the type flags in a type, iterating through unions automatically
  */
-export function getTypeFlags(type: ts.Type): ts.TypeFlags {
-  let flags: ts.TypeFlags = 0;
+export function getTypeFlags(type: ts.Type): ts.TypeFlags | 0 {
+  let flags: ts.TypeFlags | 0 = 0;
   for (const t of unionTypeParts(type)) {
     flags |= t.flags;
   }
