@@ -6,7 +6,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:24.16
     working_directory: ~/eslint-plugin-airtight
     steps:
       - checkout
@@ -21,7 +21,7 @@ jobs:
           command: npm run test
   release:
     docker:
-      - image: cimg/node:lts
+      - image: cimg/node:24.16
     working_directory: ~/eslint-plugin-airtight
     steps:
       - checkout
@@ -30,7 +30,9 @@ jobs:
           command: npm install
       - run:
           name: Release
-          command: npx -y semantic-release@19
+          command: |
+            export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
+            npx -y semantic-release@25
 
 workflows:
   version: 2
@@ -54,7 +56,9 @@ workflows:
     jobs:
       - release:
           name: Release
-          context: nodejs-lib-release
+          context:
+            - nodejs-install
+            - github-release
           filters:
             branches:
               only:
